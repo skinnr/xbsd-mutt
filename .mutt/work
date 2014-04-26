@@ -1,0 +1,19 @@
+## Receive options
+set imap_user = "your.email@email.com"
+set imap_pass = "yourpassword" 
+set folder = "imaps://mail.email.com:993"
+set spoolfile = "+Inbox"
+set postponed = "+Drafts"
+set record = "+Sent"
+
+## Send options
+set smtp_url = "smtp://$imap_user:$imap_pass@mail.email.com:587/"
+set smtp_pass = "yourpassword" 
+set from = "your.email@email.com"
+set hostname = email.com 
+set realname = "your name"
+set signature = "your signature"
+set use_from = yes
+
+## Hook
+account-hook $folder "set imap_user=your.email@email.com imap_pass=yourpassword"

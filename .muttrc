@@ -1,0 +1,85 @@
+# General options
+set editor = "vim"
+set imap_check_subscribed
+set mail_check = 120
+set timeout = 300
+set imap_keepalive = 300
+unset imap_passive
+set mbox_type=Maildir
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+set certificate_file=~/.mutt/certificates
+set move = no
+set include
+set sort = 'threads'
+set sort_aux = 'reverse-last-date-received'
+set auto_tag = yes
+ignore "Authentication-Results:"
+ignore "DomainKey-Signature:"
+ignore "DKIM-Signature:"
+hdr_order Date From To Cc
+alternative_order text/plain text/html *
+auto_view text/html
+bind editor <Tab> complete-query
+bind editor ^T complete
+bind editor <space> noop 
+
+## Account 1
+source "~/.mutt/work"
+folder-hook $folder 'source ~/.mutt/work'
+
+## Account 2
+source "~/.mutt/personal"
+folder-hook $folder 'source ~/.mutt/personal'
+
+## Sidebar
+set sidebar_width = 30
+set sidebar_visible = no 
+set sidebar_delim = '    |X|  '
+color sidebar_new color148 color234
+
+macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
+macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
+
+# Ctrl-n, Ctrl-p to select next, previous folder.
+# Ctrl-o to open selected folder.
+bind index,pager \CP sidebar-prev
+bind index,pager \CN sidebar-next
+bind index,pager \CO sidebar-open
+
+# sort folders if imap_check_subscribed is activated
+set sidebar_sort = yes
+
+## Shortcuts
+macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/personal<enter><change-folder>!<enter>'
+macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/work<enter><change-folder>!<enter>'
+macro index 'c' '<change-folder>?<change-dir><home>^K=<enter>'
+
+#molokai colorscheme
+color	normal		color247 color234      # default colours
+color   index           color148 color234 ~N   # new messages
+color   index           color197 color233 ~F   # flagged messages
+color   index           color31  color234 ~T   # tagged messages
+color   index           color197 color234 ~D   # deleted messages
+color	body		color148 color234      (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
+color	body		color31  color234       [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+color	attachment	color208 color234      # attachments
+color	signature	color247 color234      # sigs
+color   search          color22  color148      # highlight results
+
+color	indicator	color22  color148      # currently highlighted message
+color	error		color197 color234      # error messages
+color	status		color239 color233      # status line
+color	tree		color236 color234      # thread tree
+color   tilde           color236 color234      # blank line padding
+
+color	hdrdefault	color247 color236      # default headers
+color   header          color252 color236      "^From:"
+color   header          color252 color236      "^Subject:"
+
+color	quoted		color247 color234      # quote colours
+color   quoted1         color247 color234
+color   quoted2         color247 color234
+color   quoted3         color247 color234
+color   quoted4         color247 color234
+color   quoted5         color247 color234
